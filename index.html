@@ -31,18 +31,16 @@
             </div>
             
             <button type="submit" class="btn btn-primary btn-lg w-100">JSON 파일로 안전하게 전송</button>
-        }
         </form>
     </div>
 
     <script>
-        // 여기에 나중에 [Step 2]에서 배포한 구글 앱스 스크립트 웹 앱 URL을 넣습니다.
+        // 여기에 구글 앱스 스크립트(GAS) 웹 앱 URL을 넣으세요.
         const GAS_WEB_APP_URL = "여기에_GAS_URL_입력"; 
 
         document.getElementById('clientForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // 기본 폼 제출 동작 방지
+            e.preventDefault();
             
-            // 1. 폼 데이터 조립
             const formData = new FormData(this);
             const data = {
                 Brodcast_info: {
@@ -54,20 +52,20 @@
                 }
             };
             
-            // 2. 구글 앱스 스크립트 API로 POST 요청 전송
             fetch(GAS_WEB_APP_URL, {
                 method: 'POST',
-                mode: 'no-cors', // CORS 문제 해결 (반드시 설정)
+                mode: 'no-cors', 
                 cache: 'no-cache',
                 headers: { 'Content-Type': 'application/json' },
-                body: json.stringify(data)
+                // json -> JSON 으로 수정됨
+                body: JSON.stringify(data)
             })
             .then(() => {
                 alert("성공적으로 전송되었습니다! [에이아이테크]가 확인 후 연락드리겠습니다.");
-                location.reload(); // 폼 초기화
+                location.reload(); 
             })
             .catch(error => {
-                st.error("전송 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.");
+                alert("전송 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.");
                 console.error('Error:', error);
             });
         });
