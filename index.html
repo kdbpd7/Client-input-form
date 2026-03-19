@@ -1,74 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-    <title>[에이아이테크] 방송 상품 정보 입력</title>
+    <meta charset="UTF-8">
+    <title>[BIN PRODUCTION] 라이브 방송 사전 질문지</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { padding: 50px; background-color: #f8f9fa; }
-        .form-container { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        body { background-color: #f4f6f9; padding: 40px 0; font-family: 'Malgun Gothic', sans-serif; }
+        .card { border: none; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .card-header { background-color: #fff; border-bottom: 2px solid #f8f9fa; font-weight: bold; font-size: 1.1rem; border-radius: 15px 15px 0 0 !important; }
+        .btn-submit { background-color: #0d6efd; color: white; padding: 15px; font-size: 1.2rem; font-weight: bold; border-radius: 10px; }
     </style>
 </head>
 <body>
-    <div class="container form-container">
-        <h2 class="mb-4">🎥 [에이아이테크] 방송 상품 정보 입력 폼</h2>
-        <p class="text-muted mb-5">귀사의 성공적인 방송을 위해 정확한 정보를 입력해 주세요.</p>
+<div class="container" style="max-width: 800px;">
+    <h2 class="text-center mb-4">🎥 라이브 방송 사전 질문지</h2>
+    <form id="clientForm">
         
-        <form id="clientForm">
-            <div class="row mb-4">
+        <div class="card">
+            <div class="card-header text-primary">1. 기본 방송 정보</div>
+            <div class="card-body row g-3">
                 <div class="col-md-6">
-                    <label class="form-label">방송 일자</label>
-                    <input type="date" class="form-control" name="date" required>
+                    <label>방송 일자</label><input type="date" class="form-control" name="date" required>
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">업체명</label>
-                    <input type="text" class="form-control" name="company" placeholder="예: 에이아이테크" required>
+                    <label>업체명</label><input type="text" class="form-control" name="company" required>
+                </div>
+                <div class="col-md-12">
+                    <label>방송 톤 (Persona)</label>
+                    <select class="form-select" name="tone">
+                        <option value="신뢰감 중심">신뢰감 중심 (전문적, 차분함)</option>
+                        <option value="친근함 중심">친근함 중심 (소통, 유머)</option>
+                        <option value="긴박함 중심">긴박함 중심 (홈쇼핑 스타일, 텐션 UP)</option>
+                    </select>
                 </div>
             </div>
-            
-            <div class="mb-4">
-                <label class="form-label">메인 상품명</label>
-                <input type="text" class="form-control" name="main_product" placeholder="정확한 풀네임을 입력하세요" required>
+        </div>
+
+        <div class="card">
+            <div class="card-header text-success">2. 메인 상품 정보 (Main Product)</div>
+            <div class="card-body row g-3">
+                <div class="col-md-8"><label>메인 상품명</label><input type="text" class="form-control" name="main" required></div>
+                <div class="col-md-4">
+                    <label>카테고리</label>
+                    <select class="form-select" name="category">
+                        <option value="뷰티">뷰티</option>
+                        <option value="의류">의류</option>
+                        <option value="소형가전">소형가전</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </div>
+                <div class="col-md-6"><label>타겟 고객</label><input type="text" class="form-control" name="target" placeholder="예: 20대 여성"></div>
+                <div class="col-md-6"><label>고객 고민</label><input type="text" class="form-control" name="concerns" placeholder="예: 피부가 건조하다"></div>
+                <div class="col-md-3"><label>소구점 1</label><input type="text" class="form-control" name="Main_USP_1"></div>
+                <div class="col-md-3"><label>소구점 2</label><input type="text" class="form-control" name="Main_USP_2"></div>
+                <div class="col-md-3"><label>소구점 3</label><input type="text" class="form-control" name="Main_USP_3"></div>
+                <div class="col-md-3"><label>소구점 4</label><input type="text" class="form-control" name="Main_USP_4"></div>
+                <div class="col-md-6"><label>가격 (원가/할인가)</label><input type="text" class="form-control" name="price" placeholder="예: 원가 3만 / 할인가 2만"></div>
+                <div class="col-md-6"><label>할인 조건</label><input type="text" class="form-control" name="price_conditions" placeholder="예: 방송 중에만 적용"></div>
+                <div class="col-md-12"><label>차별점 (타사 대비)</label><input type="text" class="form-control" name="Differences"></div>
+                <div class="col-md-12"><label>혜택 구성 (사은품 등)</label><input type="text" class="form-control" name="Benefit"></div>
+                <div class="col-md-12"><label>오늘 방송 목표</label><input type="text" class="form-control" name="goal" placeholder="예: 완판"></div>
             </div>
-            
-            <button type="submit" class="btn btn-primary btn-lg w-100">JSON 파일로 안전하게 전송</button>
-        </form>
-    </div>
+        </div>
 
-    <script>
-        // 여기에 구글 앱스 스크립트(GAS) 웹 앱 URL을 넣으세요.
-        const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwPUQ2Qnn7RNyLMfcOtk2Iyon3derR6f5LyFB9ap2APGwK4eBpDH2Sna4GFd-nr9X38/exec"; 
+        <div class="card">
+            <div class="card-header text-secondary">3. 보조 상품 1 (선택사항)</div>
+            <div class="card-body row g-3">
+                <div class="col-md-6"><label>보조 상품명</label><input type="text" class="form-control" name="Sub_1"></div>
+                <div class="col-md-6"><label>가격</label><input type="text" class="form-control" name="Sub_1_price"></div>
+                <div class="col-md-12"><label>핵심 소구점 (1개)</label><input type="text" class="form-control" name="sub_1_USP"></div>
+                <div class="col-md-6"><label>콤보 혜택 (메인과 구매시)</label><input type="text" class="form-control" name="Sub_1_combo_Benefit"></div>
+                <div class="col-md-6"><label>메인 상품과의 연관성</label><input type="text" class="form-control" name="Sub_1_Relevance" placeholder="없으면 비워두세요"></div>
+            </div>
+        </div>
 
-        document.getElementById('clientForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const data = {
-                Brodcast_info: {
-                    date: formData.get('date'),
-                    company: formData.get('company')
-                },
-                Main_Product_DB: {
-                    main: formData.get('main_product')
-                }
-            };
-            
-            fetch(GAS_WEB_APP_URL, {
-                method: 'POST',
-                mode: 'no-cors', 
-                cache: 'no-cache',
-                headers: { 'Content-Type': 'application/json' },
-                // json -> JSON 으로 수정됨
-                body: JSON.stringify(data)
-            })
-            .then(() => {
-                alert("성공적으로 전송되었습니다! [에이아이테크]가 확인 후 연락드리겠습니다.");
-                location.reload(); 
-            })
-            .catch(error => {
-                alert("전송 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.");
-                console.error('Error:', error);
-            });
-        });
-    </script>
+        <button type="submit" class="btn btn-submit w-100 mb-5">데이터 안전 전송 (제출하기)</button>
+    </form>
+</div>
+
+<script>
+    // ⚠️ 여기에 기존에 작동 확인된 GAS 웹앱 URL을 넣으세요!
+    const GAS_WEB_APP_URL = "1Be3ygfAeasUFRvLPBaL4QxGQmMegjdQP"; 
+
+    document.getElementById('clientForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const fd = new FormData(this);
+        
+        // 대표님이 설계하신 JSON 구조에 맞게 조립
+        const payload = {
+            Brodcast_info: {
+                date: fd.get('date'),
+                company: fd.get('company')
+            },
+            Persona_DB: {
+                tone: fd.get('tone')
+            },
+            Main_Product_DB: {
+                main: fd.get('main'), category: fd.get('category'), target: fd.get('target'),
+                concerns: fd.get('concerns'), Main_USP_1: fd.get('Main_USP_1'), Main_USP_2: fd.get('Main_USP_2'),
+                Main_USP_3: fd.get('Main_USP_3'), Main_USP_4: fd.get('Main_USP_4'), price: fd.get('price'),
+                price_conditions: fd.get('price_conditions'), Differences: fd.get('Differences'),
+                goal: fd.get('goal'), Benefit: fd.get('Benefit')
+            },
+            Sub_Product_DB: {
+                Sub_1: fd.get('Sub_1'), Sub_1_price: fd.get('Sub_1_price'), sub_1_USP: fd.get('sub_1_USP'),
+                Sub_1_combo_Benefit: fd.get('Sub_1_combo_Benefit'), Sub_1_Relevance: fd.get('Sub_1_Relevance')
+            }
+        };
+
+        // 데이터 전송
+        fetch(GAS_WEB_APP_URL, {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        }).then(() => {
+            alert("전송 완료! 담당자가 확인 후 연락드리겠습니다.");
+            location.reload();
+        }).catch(err => alert("전송 오류 발생"));
+    });
+</script>
 </body>
 </html>
