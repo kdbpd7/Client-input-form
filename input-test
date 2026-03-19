@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>[에이아이테크] 방송 상품 정보 입력</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { padding: 50px; background-color: #f8f9fa; }
+        .form-container { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <div class="container form-container">
+        <h2 class="mb-4">🎥 [에이아이테크] 방송 상품 정보 입력 폼</h2>
+        <p class="text-muted mb-5">귀사의 성공적인 방송을 위해 정확한 정보를 입력해 주세요.</p>
+        
+        <form id="clientForm">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label class="form-label">방송 일자</label>
+                    <input type="date" class="form-control" name="date" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">업체명</label>
+                    <input type="text" class="form-control" name="company" placeholder="예: 에이아이테크" required>
+                </div>
+            </div>
+            
+            <div class="mb-4">
+                <label class="form-label">메인 상품명</label>
+                <input type="text" class="form-control" name="main_product" placeholder="정확한 풀네임을 입력하세요" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-lg w-100">JSON 파일로 안전하게 전송</button>
+        }
+        </form>
+    </div>
+
+    <script>
+        // 여기에 나중에 [Step 2]에서 배포한 구글 앱스 스크립트 웹 앱 URL을 넣습니다.
+        const GAS_WEB_APP_URL = "여기에_GAS_URL_입력"; 
+
+        document.getElementById('clientForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // 기본 폼 제출 동작 방지
+            
+            // 1. 폼 데이터 조립
+            const formData = new FormData(this);
+            const data = {
+                Brodcast_info: {
+                    date: formData.get('date'),
+                    company: formData.get('company')
+                },
+                Main_Product_DB: {
+                    main: formData.get('main_product')
+                }
+            };
+            
+            // 2. 구글 앱스 스크립트 API로 POST 요청 전송
+            fetch(GAS_WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors', // CORS 문제 해결 (반드시 설정)
+                cache: 'no-cache',
+                headers: { 'Content-Type': 'application/json' },
+                body: json.stringify(data)
+            })
+            .then(() => {
+                alert("성공적으로 전송되었습니다! [에이아이테크]가 확인 후 연락드리겠습니다.");
+                location.reload(); // 폼 초기화
+            })
+            .catch(error => {
+                st.error("전송 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.");
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
